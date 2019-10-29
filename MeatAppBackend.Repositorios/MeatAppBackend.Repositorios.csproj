@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MeatAppBackend.Entidades\MeatAppBackend.Entidades.csproj" />
+    <ProjectReference Include="..\MeatAppBackend.Fronteiras\MeatAppBackend.Fronteiras.csproj" />
+    <ProjectReference Include="..\MeatAppBackend.Utils\MeatAppBackend.Utils.csproj" />
+  </ItemGroup>
+
+</Project>
