@@ -43,9 +43,13 @@ namespace MeatAppBackend.Repositorios.Avaliacao
 			{4}
 			)";
 
+		private const string SQL_BASE_EXCLUIR
+
 		private readonly static string SQL_LISTAR_AVALIACOES = String.Format(SQL_BASE_AVALIACOES, "");
 		private readonly static string SQL_OBTER_AVALIACAO_RESTAURANTE = String.Format(SQL_BASE_AVALIACOES, "WHERE RestauranteId = @RestauranteId");
 		private readonly static string SQL_INSERIR_AVALIACAO = String.Format(SQL_BASE_INSERT_AVALIACAO, "@Nome", "@Data", "@Nota", "@Comentario", "@RestauranteId");
+		private const string SQL_DELETE_AVALIACAO = @"DELETE dbo.Avaliacao FROM Menu WHERE Id = {0}";
+
 		#endregion
 		#region Metodos Publicos
 
@@ -84,6 +88,17 @@ namespace MeatAppBackend.Repositorios.Avaliacao
 				parametros.Add("RestauranteId", restaurantID, DbType.AnsiString);
 
 				return conexao.Query<AvaliacaoEntidade>(SQL_OBTER_AVALIACAO_RESTAURANTE, parametros);
+			}
+
+		}
+		public IEnumerable<AvaliacaoEntidade> ExcluirAvaliacao(string avaliacaoId)
+		{
+			using (var conexao = ObterConexao())
+			{
+				DynamicParameters parametros = new DynamicParameters();
+				parametros.Add("avaliacaoId", avaliacaoId, DbType.AnsiString);
+
+				return conexao.Query<AvaliacaoEntidade>(SQL_DELETE_AVALIACAO, parametros);
 			}
 
 		}

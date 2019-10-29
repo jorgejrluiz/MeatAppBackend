@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using MeatAppBackend.Executores.Avaliacao;
 using MeatAppBackend.Fronteiras.Shared;
-using MeatAppBackend.Fronteiras.Executores.Avaliacao.ListarAvaliacaoExecutor;
 using MeatAppBackend.Api.Models;
 using MeatAppBackend.Entidades;
 using MeatAppBackend.Fronteiras.Executores.Avaliacao.InserirAvaliacaoExecutor;
+using MeatAppBackend.Fronteiras.Executores.Avaliacao.ListarAvaliacaoExecutor;
+using MeatAppBackend.Fronteiras.Executores.Avaliacao.ExcluirAvaliacaoExecutor;
 using MeatAppBackend.Utils.Excecoes;
 
 namespace MeatAppBackend.Api.Controllers
@@ -19,14 +20,18 @@ namespace MeatAppBackend.Api.Controllers
     {
         private readonly IExecutorSemRequisicao<ListarAvaliacaoResultado> ListarAvaliacaoExecutor;
         private readonly IExecutorSemResultado<InserirAvaliacaoRequisicao> inserirAvaliacaoExecutor;
+        private readonly IExecutorSemResultado<ExcluirAvaliacaoExecutor> excluirAvaliacaoExecutor;
 
 
         public AvaliacaoController(IExecutorSemRequisicao<ListarAvaliacaoResultado> listarAvaliacaoExecutor,
-                                    IExecutorSemResultado<InserirAvaliacaoRequisicao> inserirAvaliacaoExecutor)
+                                    IExecutorSemResultado<InserirAvaliacaoRequisicao> inserirAvaliacaoExecutor,
+                                    IExecutorSemResultado<ExcluirAvaliacaoExecutor> excluirAvaliacaoExecutor)
         {
             this.ListarAvaliacaoExecutor = listarAvaliacaoExecutor;
             this.inserirAvaliacaoExecutor = inserirAvaliacaoExecutor;
+            this.excluirAvaliacaoExecutor = excluirAvaliacaoExecutor;
         }
+
         /// <summary>
         /// Lista todas as Avaliacoes
         /// </summary>
@@ -75,5 +80,31 @@ namespace MeatAppBackend.Api.Controllers
             return StatusCode(201);
         }
 
+        /// <summary>
+        /// Exclui avaliacao
+        /// </summary>
+        /// <param string="Id"></param>
+        /// <response code="204">Se a Avaliacao foi excluida</response>
+        /// <response code="400">Erro ao excluir</response>   
+        /// <response code="404">se não houver avaliacao</response>
+        [HttpDelete()]
+        public ActionResult<IEnumerable<AvaliacaoModel>> ExcluirAvaliacao(string Id)
+        {
+            var requisicao = new ExcluirAvaliacaoRequisicao(){
+                Id = Id
+            };
+            try
+            {
+                excluirAvaliacaoExecutor.Executar(requisicao);
+            }
+            catch (BaseException ex)
+            {
+                return StatusCode((int)ex.HttpStatus, ex.Mensagem);
+            }
+            return NoContent();
+        }
+
+
+        
     }
 }

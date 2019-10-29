@@ -27,6 +27,7 @@ using MeatAppBackend.Fronteiras.Executores.Pedido.InserirPedidoExecutor;
 using MeatAppBackend.Fronteiras.Executores.Pedido.InserirPedidoRestauranteExecutor;
 using MeatAppBackend.Fronteiras.Executores.Menu;
 using MeatAppBackend.Fronteiras.Executores.Avaliacao.InserirAvaliacaoExecutor;
+using MeatAppBackend.Fronteiras.Executores.Avaliacao.ExcluirAvaliacaoExecutor;
 using MeatAppBackend.Fronteiras.Executores.Menu.InserirMenuRestauranteExecutor;
 using MeatAppBackend.Fronteiras.Executores.Menu.ExcluirMenuRestauranteExecutor;
 using MeatAppBackend.Fronteiras.Executores.Menu.AlterarMenuRestauranteExecutor;
