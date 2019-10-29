@@ -8,7 +8,8 @@ namespace MeatAppBackend.Fronteiras.Repositorios
     public interface IAvaliacaoRepositorio
     {
         IEnumerable<AvaliacaoEntidade> ListarAvaliacao();
-        IEnumerable<AvaliacaoEntidade> ObterAvaliacao(string restaurantID);
+        IEnumerable<AvaliacaoEntidade> ObterAvaliacao(string restaurantID);    
         void InserirAvaliacao(AvaliacaoEntidade avaliacao);
+        void ExcluirAvaliacao(string avaliacaoId);
     }
 }
